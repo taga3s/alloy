@@ -88,6 +88,7 @@ import (
 	tcplogreceiver "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/tcplogreceiver"
 	vcenterreceiver "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/vcenterreceiver"
 	zipkinreceiver "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/zipkinreceiver"
+	nopreceiver "go.opentelemetry.io/collector/receiver/nopreceiver"
 	otlpreceiver "go.opentelemetry.io/collector/receiver/otlpreceiver"
 )
 
@@ -116,7 +117,7 @@ func components() (otelcol.Factories, error) {
 		return otelcol.Factories{}, err
 	}
 	factories.ExtensionModules = make(map[component.Type]string, len(factories.Extensions))
-	factories.ExtensionModules[alloyengine.NewFactory().Type()] = "github.com/grafana/alloy v1.17.0"
+	factories.ExtensionModules[alloyengine.NewFactory().Type()] = "github.com/grafana/alloy v1.18.0"
 	factories.ExtensionModules[basicauthextension.NewFactory().Type()] = "github.com/open-telemetry/opentelemetry-collector-contrib/extension/basicauthextension v0.153.0"
 	factories.ExtensionModules[bearertokenauthextension.NewFactory().Type()] = "github.com/open-telemetry/opentelemetry-collector-contrib/extension/bearertokenauthextension v0.153.0"
 	factories.ExtensionModules[headerssetterextension.NewFactory().Type()] = "github.com/open-telemetry/opentelemetry-collector-contrib/extension/headerssetterextension v0.153.0"
@@ -157,6 +158,7 @@ func components() (otelcol.Factories, error) {
 		tcplogreceiver.NewFactory(),
 		vcenterreceiver.NewFactory(),
 		zipkinreceiver.NewFactory(),
+		nopreceiver.NewFactory(),
 		otlpreceiver.NewFactory(),
 	)
 	if err != nil {
@@ -189,6 +191,7 @@ func components() (otelcol.Factories, error) {
 	factories.ReceiverModules[tcplogreceiver.NewFactory().Type()] = "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/tcplogreceiver v0.153.0"
 	factories.ReceiverModules[vcenterreceiver.NewFactory().Type()] = "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/vcenterreceiver v0.153.0"
 	factories.ReceiverModules[zipkinreceiver.NewFactory().Type()] = "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/zipkinreceiver v0.153.0"
+	factories.ReceiverModules[nopreceiver.NewFactory().Type()] = "go.opentelemetry.io/collector/receiver/nopreceiver v0.153.0"
 	factories.ReceiverModules[otlpreceiver.NewFactory().Type()] = "go.opentelemetry.io/collector/receiver/otlpreceiver v0.153.0"
 
 	factories.Exporters, err = otelcol.MakeFactoryMap[exporter.Factory](
